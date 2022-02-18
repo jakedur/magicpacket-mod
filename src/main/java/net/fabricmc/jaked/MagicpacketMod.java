@@ -4,7 +4,8 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.fabricmc.api.ModInitializer;
 import net.querz.nbt.io.NBTUtil;
-import net.querz.nbt.tag.*;
+import net.querz.nbt.tag.CompoundTag;
+import net.querz.nbt.tag.ListTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +89,7 @@ public class MagicpacketMod implements ModInitializer {
 				bot.getGuildById(DServerID).getTextChannelById(DChannelID).getHistory().retrievePast(1).map(messages -> messages.get(0)).queue(message -> {
 
 					// construct server file
-					ListTag lt = new ListTag(CompoundTag.class);
+					ListTag<CompoundTag> lt = new ListTag<>(CompoundTag.class);
 					CompoundTag innerCt = new CompoundTag();
 
 					innerCt.putString("name", "Minecraft Server");
@@ -103,11 +104,11 @@ public class MagicpacketMod implements ModInitializer {
 						NBTUtil.write(ct, System.getProperty("user.dir") + "/servers.dat", false);
 						LOGGER.info("Replaced Server");
 					} catch (Exception e) {
-						e.printStackTrace();
+						LOGGER.info(e.getLocalizedMessage());
 					}
 				});
 				bot.shutdown();
-			} catch (Exception ex) { ex.printStackTrace(); }
+			} catch (Exception ex) { LOGGER.info(ex.getLocalizedMessage()); }
 		else
 			LOGGER.info("Need Tokens/ID for discord");
 	}
