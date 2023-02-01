@@ -1,6 +1,3 @@
 # Magic Packet Mod
 
-Sends a magic packet to specified computer
-
-* oops went further on this then I expected
-Now also reads most recent ip and updates server
+Broadcasts a magic packet on the network to wake a sleeping computer
